@@ -4,13 +4,11 @@ const Auth = require('../auth/auth-model')
 const db = require('../database/dbConfig')
 
 
-// beforeEach(async () => {
-//     await db.seed.run
-// })
+beforeEach(async () => {
+    await db.seed.run
+})
 
-// afterEach(async () => {
-//     await db.destroy()
-// })
+
 
 describe('User can login or register', () => {
     it('GETS users', async () => {
@@ -20,12 +18,13 @@ describe('User can login or register', () => {
     })
     it('registers a new user', async () => {
         const res = await request(server).get('/api/auth')
-        await Auth.insert({ username: 'Lil Kim', password: 'abc123'})
-        await Auth.insert({ username: 'Missy Elliot', password: 'def456'})
+    //   await Auth.insert({ username: 'Lil Kim', password:'abc123'} )
+         const user = await Auth.insert({ username: 'Missy Elliot', password: 'def456' })
         //read data from table
-        const user = await db('users')
-        //verify 2 new records inserted
+       //verify 2 new records inserted
         expect(res.statusCode).toBe(200)
-        expect(user).toBeInTheDocument()
+        expect(user).toBeInTheDocument()       
     })
+
+
 })
